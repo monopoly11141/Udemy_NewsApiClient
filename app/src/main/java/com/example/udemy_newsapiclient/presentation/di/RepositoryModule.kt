@@ -1,6 +1,7 @@
 package com.example.udemy_newsapiclient.presentation.di
 
 import com.example.udemy_newsapiclient.data.NewsRepositoryImpl
+import com.example.udemy_newsapiclient.data.repository.dataSource.NewsLocalDataSource
 import com.example.udemy_newsapiclient.data.repository.dataSource.NewsRemoteDataSource
 import com.example.udemy_newsapiclient.domain.repository.NewsRepository
 import dagger.Module
@@ -15,8 +16,11 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun providesNewsRepository(newsRemoteDataSource: NewsRemoteDataSource) : NewsRepository {
-        return NewsRepositoryImpl(newsRemoteDataSource)
+    fun providesNewsRepository(
+        newsRemoteDataSource: NewsRemoteDataSource,
+        newsLocalDataSource: NewsLocalDataSource
+    ) : NewsRepository {
+        return NewsRepositoryImpl(newsRemoteDataSource, newsLocalDataSource)
     }
 
 }
